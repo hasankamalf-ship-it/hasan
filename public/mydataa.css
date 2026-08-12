@@ -232,6 +232,7 @@
             padding: 2rem;
             border-radius: 16px;
             border: 1px solid var(--border-color);
+            overflow: auto;
         }
 
         .table-header-area {
@@ -467,4 +468,18 @@
             
             /* تفعيل التمرير الأفقي للجدول على الموبايل */
             .table-wrap { overflow-x: auto; }
+        }
+        @media (max-width: 600px){
+            .sidebar {
+                flex-direction: column !important;
+                padding: 0.8rem 0.5rem !important;
+            }
+            .nav-links {
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 0.4rem !important;
+            }
+            .nav-links a {
+                font-size: 0.85rem !important;
+            }
         }
