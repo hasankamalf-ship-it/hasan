@@ -19,7 +19,8 @@ const biredit = require("./routes/editroute")
 const birview = require("./routes/viewroute")
 const birall = require("./routes/all")
 
-mongoose.connect("mongodb+srv://divhasan:3uLajJmhVB6YLcvi@cluster0.wgdmivy.mongodb.net/all-hasan?appName=Cluster0")
+// mongoose.connect("mongodb+srv://divhasan:3uLajJmhVB6YLcvi@cluster0.wgdmivy.mongodb.net/all-hasan?appName=Cluster0")
+mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     app.listen(port,()=>{
     console.log(`http://localhost:3000/`);
