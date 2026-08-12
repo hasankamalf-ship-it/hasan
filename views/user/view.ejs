@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الأعضاء | جيم ماستر</title>
+    
+    <!-- خطوط جوجل (Readex Pro للعربية) -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="mydataa.css">
+</head>
+<body>
+
+    <!-- السايدبار (قائمة التنقل الجانبية) -->
+    <nav class="sidebar">
+        <div class="logo">جيم ماستر</div>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-th-large"></i> <span>لوحة التحكم</span></a></li>
+            <!-- هذا هو القسم المطلوب، نستخدم فئة active لتحديده -->
+            <li><a href="/view" class="active"><i class="fas fa-users"></i> <span>الأعضاء</span></a></li>
+            <li><a href="/choich"><i class="fas fa-chalkboard-teacher"></i> <span>المدربين</span></a></li>
+            <li><a href="/price"><i class="fas fa-file-invoice-dollar"></i> <span>الفواتير</span></a></li>
+            <li><a href="/sting"><i class="fas fa-cogs"></i> <span>الإعدادات</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- المحتوى الأساسي -->
+    <main class="main-content">
+        <header>
+            <h1>إدارة الأعضاء</h1>
+            <div class="header-actions">
+            <form >
+                <a href="/add" class="btn-add">
+                <i class="fas fa-user-plus"></i> إضافة عضو جديد 
+            </a>
+            </form>
+            </div>
+        </header>
+
+        <!-- كروت الإحصائيات (Stat Cards) -->
+        <section class="stats-grid">
+            <!-- كارت 1: إجمالي الأعضاء -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>إجمالي الأعضاء</h3>
+                    <i class="fas fa-users stat-icon" style="color: var(--primary-color);"></i>
+                </div>
+                <p class="count"><%= total %></p>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span> عدد الأعضاء </span>
+                </div>
+            </div>
+
+            <!-- كارت 2: الأعضاء النشطون -->
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>الأعضاء النشطون</h3>
+                    <i class="fas fa-check-circle stat-icon" style="color: var(--success);"></i>
+                </div>
+                <p class="count"><%= activee %></p>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-level-up-alt"></i>
+                    <span> الأعضاء النشطون </span>
+                </div>
+            </div>
+
+            <!-- كارت 3: الاشتراكات المنتهية -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>الاشتراكات المنتهية</h3>
+                    <i class="fas fa-exclamation-triangle stat-icon" style="color: var(--danger);"></i>
+                </div>
+                <p class="count"><%= exactivee %></p>
+                <div class="stat-trend trend-down">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>يحتاجون لتجديد</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- جدول الأعضاء المتكامل -->
+        <section class="table-container">
+            <div class="table-header-area">
+                <h2>قائمة الأعضاء</h2>
+                <form action="/view" method="post">
+                <div class="search-box">
+                    <input type="text" 
+                    id="inputs"
+                    onkeyup="ali()"
+                    placeholder="بحث عن عضو (الاسم، الهاتف)...">
+                    <i class="fas fa-search"></i>
+                </div>
+                </form>
+            </div>
+            
+            <!-- حاوية للتمرير الأفقي على الموبايل -->
+            <div class="table-wrap">
+                <table>
+                <thead>
+                    <tr>
+                        <th> ت </th>
+                        <th>الاسم الكامل</th>
+                        <th> العمر </th>
+                        <th> الهاتف </th>
+                        <th> تاريخ الأشتراك </th>
+                        <th> عدد الأيام المتبقية</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% arr1.forEach((item,index) => { %>
+                        
+                        <tr>
+                            <td> <%= index+1 %> </td>
+                            <td> <%= item.name %> </td>
+                            <td><%=  item.age %></td>
+                            <td> <%= item.tele %> </td>
+                            <td> <%= moment(item.datasta).subtract("days").format("M/D/YYYY") %> </td>
+
+
+                            <% const dateend = new Date(item.dataend) %>
+                            <% const today = new Date() %>
+
+                            <% dateend.setHours(0,0,0,0) %>
+                            <% today.setHours(0,0,0,0) %>
+
+                            <% const idl = dateend - today %>
+
+                            <% const adda = Math.ceil(idl/(1000*60*60*24)) %>
+
+                            <td>
+                                <% if(adda > 0){ %>
+                                    <span style="color: #2ecc71; font-weight: bold;"> <%= adda %> يوم متبقي</span>
+                                <% }else if (adda <= 0) { %>
+                                    <span style="color: #e74c3c; font-weight: bold;"> أنتهى الأشتراك </span>
+                                <% } %>
+                            </td>
+
+                            <td>
+                                <% let text = "منتهي"; %>
+                                <% let ids = "expired"; %>
+
+                                <% if(adda < 0){ 
+                                    text = "منتهي";
+                                    ids = "expired"; 
+                                } else if (adda <= 5){
+                                    text = "ينتهي قريبا";
+                                    ids = "pending";
+                                } else {
+                                    text = " نشط ";
+                                    ids = "active";
+                                }%>
+
+                                <span class="status-badge <%= ids %>" >
+                                    <%= text %>
+                                </span>
+
+                            </td>
+
+                            <td class="actions-cell">
+                                <a href="/vie/<%= item._id %>" class="action-btn btn-view" title="عرض الملف الشخصي"><i
+                                        class="fas fa-eye"></i></a>
+
+                                <a href="/edit/<%= item._id %>" class="action-btn btn-edit" title="تعديل"><i class="fas fa-edit"></i></a>
+
+                                    <form action="/edit/<%= item._id %>?_method=DELETE" method="post">
+                                        <button type="submit" style="background: none; border: none; padding: 0;"> <a class="action-btn btn-delete" title="حذف"><i class="fas fa-trash"></i></a></button>
+                                    </form>
+                                </td>
+                        </tr>
+                        <% }) %>
+
+                        <tr id="no" style="display: none;" >
+                            <td colspan="6" style="text-align: center;color: #ff4757; font-weight: bold; padding: 20px;">
+                                    لا يوجد أعضاء بهذا الأسم
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function ali(){
+            let a1 = document.getElementById("inputs").value.toLowerCase().trim();
+            let a2 = document.querySelectorAll("table tbody tr:not(#no)");
+            let no  = document.getElementById("no");
+            let a3 = document.querySelector("table thead");
+
+            let aa = false;
+            
+            a2.forEach(rows=>{
+                let text = rows.innerText.toLowerCase();
+                if(text.includes(a1)){
+                    rows.style.display = "";
+                    aa = true;
+                }else{
+                    rows.style.display = "none";
+                }
+            });
+
+            // if(aa){
+            //     no.style.display="none";
+            //     a3.style.display="";
+            // }else{
+            //     no.style.display="";
+            //     a3.style.display="none";
+            // }
+            no.style.display = aa ? "none" : "";
+            a3.style.display = aa ? "" : "none";
+        };
+    </script>
+
+</body>
+</html>

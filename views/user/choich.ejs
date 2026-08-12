@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المدربين | جيم ماستر</title>
+
+    <!-- خط جوجل Readex Pro للعربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- مكتبة الأيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- المتغيرات الموحدة للأنماط والألوان --- */
+        :root {
+            --primary-color: #ffc107;
+            /* اللون الذهبي/الأصفر الرياضي */
+            --primary-glow: rgba(255, 193, 7, 0.4);
+            --bg-color: #121212;
+            /* خلفية داكنة */
+            --card-bg: #1e1e1e;
+            /* خلفية البطاقات والجداول */
+            --sidebar-bg: #1a1a1a;
+            /* خلفية الشريط الجانبي */
+            --text-color: #e0e0e0;
+            /* لون النصوص */
+            --text-muted: #a0a0a0;
+            /* لون النصوص الثانوية */
+            --border-color: #333;
+            /* لون الحدود */
+
+            /* ألوان حالات المدربين */
+            --success: #2e7d32;
+            /* متاح / نشط */
+            --success-bg: rgba(46, 125, 50, 0.15);
+            --danger: #d32f2f;
+            /* غير متاح / إجازة */
+            --danger-bg: rgba(211, 47, 47, 0.15);
+            --warning: #f57c00;
+            /* في حصة تدريبية */
+            --warning-bg: rgba(245, 124, 0, 0.15);
+
+            --font-family: 'Readex Pro', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- ضبط التنسيقات العامة --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- الشريط الجانبي (Sidebar) --- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 193, 7, 0.08);
+            color: var(--primary-color);
+            font-weight: 600;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.1);
+        }
+
+        .nav-links a i {
+            margin-left: 15px;
+            font-size: 1.3rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* --- المنطقة الرئيسية (Main Area) --- */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem;
+            margin-right: 280px;
+            transition: var(--transition);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .btn-add {
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: #121212;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .btn-add:hover {
+            background-color: #e0a800;
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-add i {
+            margin-left: 8px;
+        }
+
+        /* --- كروت الإحصائيات الخاصة بالمدربين --- */
+        .stats-grid {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            flex: 1;
+            min-width: 280px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            border-color: #555;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            opacity: 0.85;
+        }
+
+        .stat-card .count {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- جدول المدربين --- */
+        .table-container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .table-container h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            width: 350px;
+            transition: var(--transition);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .search-box i {
+            color: var(--text-muted);
+            margin-right: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            min-width: 850px;
+        }
+
+        table thead tr {
+            text-align: right;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        table th {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        table td {
+            padding: 1.2rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* صورة المدرب واسمه */
+        .trainer-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .trainer-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        /* التخصص والوسوم */
+        .specialty-tag {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            border: 1px solid #333;
+            display: inline-block;
+        }
+
+        /* شارات الحالة (Status Badges) */
+        .status-badge {
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-badge.available {
+            background-color: var(--success-bg);
+            color: var(--success);
+        }
+
+        .status-badge.available::before {
+            background-color: var(--success);
+        }
+
+        .status-badge.in-session {
+            background-color: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .status-badge.in-session::before {
+            background-color: var(--warning);
+        }
+
+        .status-badge.off {
+            background-color: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .status-badge.off::before {
+            background-color: var(--danger);
+        }
+
+        /* الإجراءات (Actions) */
+        .actions-cell {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-view:hover {
+            color: #fff;
+            border-color: #666;
+        }
+
+        .btn-schedule:hover {
+            color: #4fc3f7;
+            border-color: rgba(79, 195, 247, 0.4);
+        }
+
+        .btn-edit:hover {
+            color: var(--primary-color);
+            border-color: rgba(255, 193, 7, 0.4);
+        }
+
+        .btn-delete:hover {
+            color: var(--danger);
+            border-color: rgba(211, 47, 47, 0.4);
+        }
+
+        /* --- التجاوب مع الشاشات المختلفة --- */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 240px;
+            }
+
+            .main-content {
+                margin-right: 240px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem;
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 2rem 1rem;
+            }
+
+            .logo {
+                margin-bottom: 0;
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .nav-links li {
+                margin-bottom: 0;
+            }
+
+            .nav-links a {
+                padding: 0.6rem 1rem;
+                font-size: 1rem;
+            }
+
+            .nav-links a span {
+                display: none;
+            }
+
+            .nav-links a i {
+                margin-left: 0;
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .stats-grid {
+                gap: 1rem;
+            }
+
+            .table-wrap {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- الشريط الجانبي (Sidebar) -->
+    <nav class="sidebar">
+        <div class="logo">جيم ماستر</div>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-th-large"></i> <span>لوحة التحكم</span></a></li>
+            <li><a href="/view"><i class="fas fa-users"></i> <span>الأعضاء</span></a></li>
+            <!-- تم تفعيل هذا الخيار ليظهر أنه قسم المدربين النشط -->
+            <li><a href="/choich" class="active"><i class="fas fa-chalkboard-teacher"></i> <span>المدربين</span></a></li>
+            <li><a href="/price"><i class="fas fa-file-invoice-dollar"></i> <span>الفواتير</span></a></li>
+            <li><a href="/sting"><i class="fas fa-cogs"></i> <span>الإعدادات</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- المحتوى الرئيسي (Main Content) -->
+    <main class="main-content">
+        <header>
+            <h1>إدارة المدربين</h1>
+            <div class="header-actions">
+                <button class="btn btn-add">
+                    <i class="fas fa-user-plus"></i> إضافة مدرب جديد
+                </button>
+            </div>
+        </header>
+
+        <!-- كروت الإحصائيات الخاصة بالمدربين -->
+        <section class="stats-grid">
+            <!-- كارت 1: إجمالي المدربين -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>إجمالي المدربين</h3>
+                    <i class="fas fa-id-card stat-icon" style="color: var(--primary-color);"></i>
+                </div>
+                <p class="count">14</p>
+                <p class="stat-desc">كادر تدريبي متكامل</p>
+            </div>
+
+            <!-- كارت 2: المتواجدون حالياً -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>المتواجدون الصالة</h3>
+                    <i class="fas fa-running stat-icon" style="color: var(--success);"></i>
+                </div>
+                <p class="count">8</p>
+                <p class="stat-desc">يقدمون خدمات التدريب الآن</p>
+            </div>
+
+            <!-- كارت 3: الحصص الخاصة اليوم -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>الحصص الخاصة اليوم</h3>
+                    <i class="fas fa-calendar-check stat-icon" style="color: #4fc3f7;"></i>
+                </div>
+                <p class="count">32</p>
+                <p class="stat-desc">جلسة تدريب شخصي (PT)</p>
+            </div>
+        </section>
+
+        <!-- جدول قائمة المدربين -->
+        <section class="table-container">
+            <div class="table-header-area">
+                <h2>قائمة الكادر التدريبي</h2>
+                <div class="search-box">
+                    <input type="text" placeholder="بحث عن مدرب أو تخصص...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المدرب</th>
+                            <th>الأعضاء التابعون</th>
+                            <th> أوقات العمل </th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- مدرب 1 -->
+                        <tr>
+                            <td>
+                                <div class="trainer-profile">
+                                    محمد كمال
+                                </div>
+                            </td>
+                            <td><strong>24</strong> عضو</td>
+                            <td>04:00 م - 11:00 م</td>
+                            <td><span class="status-badge available">متاح</span></td>
+                            
+                            <td class="actions-cell">
+                                <a href="#" class="action-btn btn-view" title="عرض الملف الشخصي"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn btn-schedule" title="جدول الحصص"><i
+                                        class="fas fa-calendar-alt"></i></a>
+                                <a href="#" class="action-btn btn-edit" title="تعديل"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="action-btn btn-delete" title="حذف"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+
+                        <!-- مدرب 2 -->
+                        <tr>
+                            <td>
+                                <div class="trainer-profile">
+                                    عمر الرامي
+                                </div>
+                            </td>
+                            <td><strong>18</strong> عضو</td>
+                            <td>10:00 ص - 05:00 م</td>
+                            <td><span class="status-badge in-session">في حصة تدريب</span></td>
+                            <td class="actions-cell">
+                                <a href="#" class="action-btn btn-view" title="عرض الملف الشخصي"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn btn-schedule" title="جدول الحصص"><i
+                                        class="fas fa-calendar-alt"></i></a>
+                                <a href="#" class="action-btn btn-edit" title="تعديل"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="action-btn btn-delete" title="حذف"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+
+                        <!-- مدرب 3 -->
+                        <tr>
+                            <td>
+                                <div class="trainer-profile">
+                                    كابتن أحمد
+                                </div>
+                            </td>
+                            <td><strong>30</strong> عضو</td>
+                            <td>02:00 م - 10:00 م</td>
+                            <td><span class="status-badge available">متاح</span></td>
+                            <td class="actions-cell">
+                                <a href="#" class="action-btn btn-view" title="عرض الملف الشخصي"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn btn-schedule" title="جدول الحصص"><i
+                                        class="fas fa-calendar-alt"></i></a>
+
+                                <a href="#" class="action-btn btn-edit" title="تعديل"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="action-btn btn-delete" title="حذف"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+
+                        <!-- مدرب 4 -->
+                        <tr>
+                            <td>
+                                <div class="trainer-profile">
+                                    يوسف سامي
+                                </div>
+                            </td>
+                            <td><strong>15</strong> عضو</td>
+                            <td>08:00 ص - 04:00 م</td>
+                            <td><span class="status-badge off">إجازة</span></td>
+                            <td class="actions-cell">
+                                <a href="#" class="action-btn btn-view" title="عرض الملف الشخصي"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="#" class="action-btn btn-schedule" title="جدول الحصص"><i
+                                        class="fas fa-calendar-alt"></i></a>
+                                <a href="#" class="action-btn btn-edit" title="تعديل"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="action-btn btn-delete" title="حذف"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>

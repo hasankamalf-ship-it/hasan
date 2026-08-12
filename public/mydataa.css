@@ -1,0 +1,470 @@
+        /* --- متغيرات CSS لتوحيد الألوان والسمات لإدارة سهلة --- */
+        :root {
+            --primary-color: #ffc107; /* اللون الأصفر الذهبي الرياضي */
+            --primary-glow: rgba(255, 193, 7, 0.4); /* وهج اللون الأساسي */
+            --bg-color: #121212;      /* خلفية الوضع الداكن الرئيسية */
+            --card-bg: #1e1e1e;       /* خلفية الكروت والجداول */
+            --sidebar-bg: #1a1a1a;    /* خلفية القائمة الجانبية */
+            --text-color: #e0e0e0;    /* لون النص الأساسي */
+            --text-muted: #a0a0a0;   /* لون النص الباهت للعناوين */
+            --border-color: #333;     /* لون حدود فاتح جداً */
+            
+            /* ألوان الحالة */
+            --success: #2e7d32;       /* لون الاشتراك النشط */
+            --success-bg: rgba(46, 125, 50, 0.15);
+            --danger: #d32f2f;        /* لون الاشتراك المنتهي */
+            --danger-bg: rgba(211, 47, 47, 0.15);
+            --warning: #f57c00;       /* لون قيد الانتظار */
+            --warning-bg: rgba(245, 124, 0, 0.15);
+            
+            --font-family: 'Readex Pro', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- إعادة تعيين الإعدادات الأساسية --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex; /* لتقسيم السايدبار والمحتوى الأساسي */
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- السايدبار (قائمة التنقل الجانبية) --- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color); /* حدود على اليسار للاتجاه العربي */
+            transition: var(--transition);
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255, 193, 7, 0.08);
+            color: var(--primary-color);
+            font-weight: 600;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.1);
+        }
+
+        .nav-links a i {
+            margin-left: 15px; /* مسافة بين الأيقونة والنص */
+            font-size: 1.3rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* --- المحتوى الأساسي (Main Content) --- */
+        .main-content {
+            flex: 1; /* يأخذ باقي مساحة الصفحة */
+            padding: 2.5rem;
+            margin-right: 280px; /* مسافة تساوي عرض السايدبار */
+            transition: var(--transition);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .btn-add {
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
+            text-decoration: none !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: #121212 !important;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .btn-add:hover {
+            background-color: #e0a800;
+            color: #121212 !important;
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-add i {
+            margin-left: 8px;
+        }
+
+        /* --- كروت الإحصائيات (Stat Cards) - Flexbox --- */
+        .stats-grid {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap; /* تتكدس فوق بعضها في الشاشات الصغيرة */
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            flex: 1;
+            min-width: 280px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            transform: translateX(100%);
+            transition: transform 0.6s;
+        }
+
+        .stat-card:hover {
+            border-color: #555;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .stat-card:hover::after {
+            transform: translateX(-100%);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            opacity: 0.8;
+        }
+
+        .stat-card .count {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-trend {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--danger); }
+
+        /* --- جدول الأعضاء المتكامل (Members Table) --- */
+        .table-container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .table-container h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            width: 350px;
+            transition: var(--transition);
+        }
+        
+        .search-box:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .search-box i {
+            color: var(--text-muted);
+            margin-right: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            min-width: 800px; /* لضمان عدم تداخل الأعمدة على الشاشات الصغيرة */
+        }
+
+        table thead tr {
+            text-align: right;
+            border-bottom: 2px solid var(--border-color);
+        }
+        table th {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 1rem;
+            text-transform: uppercase;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        table td {
+            padding: 1.2rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #2a2a2a;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        table tbody tr {
+            transition: var(--transition);
+        }
+
+        table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* تنسيق الاسم كعنصر بارز */
+        .member-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: 1px solid #444;
+        }
+
+        /* أوسمة الحالة (Badges) */
+        .status-badge {
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            line-height: 1;
+        }
+        
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .status-badge.active {
+            background-color: var(--success-bg, rgba(46,204,113,0.15));
+            color: var(--success , #2ecc71);
+        }
+        .status-badge.active::before { background-color: var(--success, #2ecc71); }
+
+        .status-badge.expired {
+            background-color: var(--danger-bg ,rgba(231,76,60,0.15));
+            color: var(--danger, #e74c3c);
+        }
+        .status-badge.expired::before { background-color: var(--danger, #e74c3c); }
+        
+        .status-badge.pending {
+            background-color: var(--warning-bg);
+            color: var(--warning);
+        }
+        .status-badge.pending::before { background-color: var(--warning); }
+
+        /* الإجراءات (Actions) */
+        .actions-cell {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-view:hover {
+            color: #fff;
+            border-color: #666;
+        }
+
+        .btn-schedule:hover {
+            color: #4fc3f7;
+            border-color: rgba(79, 195, 247, 0.4);
+        }
+
+        .btn-edit:hover {
+            color: var(--primary-color);
+            border-color: rgba(255, 193, 7, 0.4);
+        }
+
+        .btn-delete:hover {
+            color: var(--danger);
+            border-color: rgba(211, 47, 47, 0.4);
+        }
+
+        /* --- Responsive Design (استجابة الشاشات) --- */
+        
+        /* تكييف السايدبار والمحتوى على الشاشات المتوسطة */
+        @media (max-width: 1200px) {
+            .sidebar { width: 240px; }
+            .main-content { margin-right: 240px; }
+        }
+
+        /* السايدبار يتحول لقائمة علوية على الشاشات الصغيرة */
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem;
+                position: static;
+            }
+            .main-content { margin-right: 0; padding: 2rem 1rem; }
+            .logo { margin-bottom: 0; font-size: 1.5rem; }
+            .nav-links { display: flex; gap: 0.5rem; }
+            .nav-links li { margin-bottom: 0; }
+            .nav-links a { padding: 0.6rem 1rem; font-size: 1rem; }
+            
+            /* إخفاء نص القائمة وإظهار الأيقونات فقط */
+            .nav-links a span { display: none; }
+            .nav-links a i { margin-left: 0; font-size: 1.4rem; }
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            header h1 { font-size: 1.8rem; }
+            .search-box { width: 100%; }
+            .stats-grid { gap: 1rem; }
+            .stat-card { padding: 1.5rem; }
+            .stat-card .count { font-size: 2.2rem; }
+            
+            /* تفعيل التمرير الأفقي للجدول على الموبايل */
+            .table-wrap { overflow-x: auto; }
+        }

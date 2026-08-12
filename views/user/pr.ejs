@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جيم ماستر | تعديل بيانات العضو</title>
+
+    <!-- خط Readex Pro الرياضي -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- مكتبة الأيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- المتغيرات والتصاميم الأساسية --- */
+        :root {
+            --primary-gold: #ffc107;
+            --primary-glow: rgba(255, 193, 7, 0.35);
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --sidebar-dark: #161616;
+            --input-bg: #181818;
+            --text-main: #f0f0f0;
+            --text-muted: #8e8e93;
+            --border-color: #2c2c2e;
+            --font-family: 'Readex Pro', sans-serif;
+            --transition: all 0.3s ease;
+
+            --success: #2e7d32;
+            --success-bg: rgba(46, 125, 50, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- القائمة الجانبية (Sidebar) --- */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-dark);
+            padding: 2rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: var(--primary-gold);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+            background-color: rgba(255, 193, 7, 0.05);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 193, 7, 0.12);
+            color: var(--primary-gold);
+            font-weight: 600;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.15);
+        }
+
+        .nav-links a i {
+            margin-left: 12px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* --- المحتوى الرئيسي (Main Content) --- */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem;
+            margin-right: 260px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-title i {
+            color: var(--primary-gold);
+        }
+
+        .btn-back {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            color: var(--text-main);
+            border-color: #555;
+        }
+
+        /* --- كارت رأس ملف العضو --- */
+        .member-info-banner {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+        }
+
+        .member-profile-summary {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: #2a2a2a;
+            border: 2px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .member-details h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .member-details p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .status-badge {
+            background-color: var(--success-bg);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* --- نموذج التعديل --- */
+        .form-card {
+            background-color: var(--card-dark);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: 900px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        label i {
+            color: var(--primary-gold);
+            font-size: 0.85rem;
+        }
+
+        input,
+        select,
+        textarea {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.9rem 1.2rem;
+            border-radius: 10px;
+            font-family: var(--font-family);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        select option {
+            background-color: var(--card-dark);
+            color: var(--text-main);
+        }
+
+        /* أزرار الحفظ والإلغاء */
+        .form-actions {
+            grid-column: span 2;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-submit {
+            background-color: var(--primary-gold);
+            color: #000;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--primary-glow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: #e0a800;
+            box-shadow: 0 0 22px rgba(255, 193, 7, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background-color: #2a2a2c;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.9rem 1.8rem;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-cancel:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        @media (max-width: 992px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem;
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 1.5rem;
+            }
+
+            .logo {
+                margin-bottom: 0;
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .nav-links a span {
+                display: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .form-actions {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+
+            .member-info-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- السايدبار الجانبي -->
+    <nav class="sidebar">
+        <div class="logo">جيم ماستر</div>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> <span>لوحة التحكم</span></a></li>
+            <li><a href="/view" class="active"><i class="fas fa-users"></i> <span>الأعضاء</span></a></li>
+            <li><a href="/choich"><i class="fas fa-user-ninja"></i> <span>المدربون</span></a></li>
+            <li><a href="/price"><i class="fas fa-receipt"></i> <span>الفواتير</span></a></li>
+            <li><a href="/sting"><i class="fas fa-cog"></i> <span>الإعدادات</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- المحتوى الأساسي -->
+    <main class="main-content">
+        <header class="page-header">
+            <a href="/price" class="btn-back">
+                <i class="fas fa-arrow-left"></i> العودة للقائمة
+            </a>
+        </header>
+
+        <!-- نموذج التعديل محشو ببيانات العضو الحالية -->
+        
+        <form action="/edit/?_method=PUT" method="post">
+        <div class="form-card">
+                <div class="form-grid">
+
+                    <!-- الاسم الكامل -->
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                        <input name="name" type="text" value="<%= arr3.name %>" required>
+                    </div>
+        </div>
+        </form>
+    </main>
+
+</body>
+
+</html>

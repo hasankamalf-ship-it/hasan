@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكشن جيم | لوحة التحكم</title>
+    
+    <!-- خطوط جوجل (Readex Pro للعربية) -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="mydataa.css">
+
+</head>
+
+<body>
+
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-dumbbell"></i>
+            أكشن جيم 
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active"><i class="fa-solid fa-house"></i> لوحة التحكم</a></li>
+
+            <li><a href="/view" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-users"> </i> الأعضاء </a></li>
+            <li><a href="/choich" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-user-ninja"> </i> المدربون </a></li>
+            <li><a href="/price" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-credit-card"> </i> الأشتراكات </a></li>
+            <li><a href="/sting" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-gear"> </i> الإعدادات </a></li>
+        </ul>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <!-- الهيدر -->
+        <header class="header">
+            <h1>لوحة التحكم</h1>
+            <a href="/add" class="btn-add">
+                <i class="fas fa-user-plus"></i> إضافة عضو جديد 
+            </a>
+
+            <!-- <button class="btn-add">
+                <a href="/add" ><i class="fa-solid fa-plus"></i> إضافة عضو جديد </a>
+            </button> -->
+        </header>
+
+        <!-- كروت الإحصائيات -->
+        <% if (arr.length > 0) { %>
+        
+        <!-- كروت الإحصائيات (Stat Cards) -->
+        <section class="stats-grid">
+            <!-- كارت 1: إجمالي الأعضاء -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>إجمالي الأعضاء</h3>
+                    <i class="fas fa-users stat-icon" style="color: var(--primary-color);"></i>
+                </div>
+                <p class="count"><%= total %></p>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span> عضو  </span>
+                </div>
+            </div>
+
+            <!-- كارت 2: الأعضاء النشطون -->
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>الأعضاء النشطون</h3>
+                    <i class="fas fa-check-circle stat-icon" style="color: var(--success);"></i>
+                </div>
+                <p class="count"><%= activee %></p>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-level-up-alt"></i>
+                    <span>الأعضاء النشطون </span>
+                </div>
+            </div>
+
+            <!-- كارت 3: الاشتراكات المنتهية -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>الاشتراكات المنتهية</h3>
+                    <i class="fas fa-exclamation-triangle stat-icon" style="color: var(--danger);"></i>
+                </div>
+                <p class="count"><%= exactivee %></p>
+                <div class="stat-trend trend-down">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>يحتاجون لتجديد</span>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        
+        <!-- جدول أحدث الأعضاء -->
+        <section class="table-container">
+            <div class="table-header-area"> <h2>قائمة الأعضاء</h2> </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th> ت </th>
+                        <th>الاسم الكامل</th>
+                        <th> العمر </th>
+                        <th> الهاتف </th>
+                        <th> تاريخ الأشتراك </th>
+                        <th>عدد الأيام المتبقية</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% arr.forEach((item,index) => { %>
+                
+                    <tr>
+                        <td> <%= index+1 %> </td>
+                        <td> <%= item.name %> </td>
+                        <td><%=  item.age %></td>
+                        <td> <%= item.tele %> </td>
+                        <td> <%= moment(item.datasta).subtract("days").format("M/D/YYYY") %> </td>
+                        
+                        <% const endDate = new Date(item.dataend); %>
+                        <% const today = new Date(); %>
+
+                        <%  endDate.setHours(0,0,0,0) %>
+                        <%  today.setHours(0,0,0,0) %>
+
+                        <%  const diff = endDate - today %>
+                        <%  const rema = Math.ceil(diff / (1000*60*60*24)) %>
+
+                        <td> <% if (rema > 0) { %>
+                            <span style="color: #2ecc71; font-weight: bold;"> <%= rema %> يوم متبقي</span> 
+                        <% } else if (rema <= 0) { %> 
+                            <span style="color: #e74c3c; font-weight: bold;"> أنتهى الأشتراك </span>
+                            <% } %>
+                        </td>
+                        
+
+                        <td> 
+                            <% let text = "منتهي"; %>
+                            <% let ids = "expired"; %>
+
+                            <% if(rema < 0){
+                                text = "منتهي";
+                                ids = "expired";
+
+                            } else if (rema <= 5) {
+                                text = "بنتهي قريبا";
+                                ids = "pending";
+                                
+                            } else { 
+                                text = "نشط";
+                                ids = "active"
+                            }%>
+                            <span class="status-badge <%= ids %>" >
+                                    <%= text %>
+                            </span>
+                        </td> 
+
+                        
+                        <td class="actions-cell">
+                                <a href="/vie/<%= item._id %>" class="action-btn btn-view" title="عرض الملف الشخصي"><i
+                                        class="fas fa-eye"></i></a>
+
+                                <a href="/edit/<%= item._id %>" class="action-btn btn-edit" title="تعديل"><i class="fas fa-edit"></i></a>
+
+                                <form action="/edit/<%= item._id %>?_method=DELETE" method="post">
+                                    <button type="submit" style="background: none; border: none; padding: 0;"> <a class="action-btn btn-delete" title="حذف"><i class="fas fa-trash"></i></a></button>
+                                </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </section>
+
+        <%} else { %>
+                <h1 style="text-align: center; margin-top: 4rem ;"> لا يوجد أعضاء </h1>
+        <% } %>
+    </main>
+
+</body>
+
+</html>

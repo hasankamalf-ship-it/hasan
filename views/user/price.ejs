@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفواتير والاشتراكات | جيم ماستر</title>
+
+    <!-- خط جوجل Readex Pro للعربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- مكتبة الأيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- المتغيرات الموحدة للأنماط والألوان (أسود وأصفر رياضى) --- */
+        :root {
+            --primary-color: #ffc107;
+            /* اللون الأصفر الذهبي */
+            --primary-glow: rgba(255, 193, 7, 0.4);
+            --bg-color: #121212;
+            /* خلفية الموقع الداكنة */
+            --card-bg: #1e1e1e;
+            /* خلفية الكروت والجداول */
+            --sidebar-bg: #1a1a1a;
+            /* خلفية السايدبار */
+            --text-color: #e0e0e0;
+            /* لون النص الأساسي */
+            --text-muted: #a0a0a0;
+            /* لون النص الثانوي */
+            --border-color: #333;
+            /* لون الحدود */
+
+            /* ألوان حالات الفواتير */
+            --success: #2e7d32;
+            /* مدفوعة */
+            --success-bg: rgba(46, 125, 50, 0.15);
+            --danger: #d32f2f;
+            /* ملغاة/غير مدفوعة */
+            --danger-bg: rgba(211, 47, 47, 0.15);
+            --warning: #f57c00;
+            /* معلقة */
+            --warning-bg: rgba(245, 124, 0, 0.15);
+
+            --font-family: 'Readex Pro', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- الضبط العام --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- القائمة الجانبية (Sidebar) --- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: rgba(255, 193, 7, 0.08);
+            color: var(--primary-color);
+            font-weight: 600;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.1);
+        }
+
+        .nav-links a i {
+            margin-left: 15px;
+            font-size: 1.3rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* --- المنطقة الرئيسية (Main Content) --- */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem;
+            margin-right: 280px;
+            transition: var(--transition);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .btn-add {
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: #121212;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .btn-add:hover {
+            background-color: #e0a800;
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-add i {
+            margin-left: 8px;
+        }
+
+        /* --- كروت الإحصائيات المالّية --- */
+        .stats-grid {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            flex: 1;
+            min-width: 240px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: #555;
+            transform: translateY(-3px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-card h3 {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .stat-card .count {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* --- كروت خطط الاشتراكات (Plans Section) - مثل الصورة تماماً بالأصفر والأسود --- */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .plan-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .plan-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .plan-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .plan-badge {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .plan-price span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 1.5rem 0 2rem 0;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 1.2rem;
+        }
+
+        .plan-features li {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plan-features li i.fa-check {
+            color: var(--primary-color);
+        }
+
+        .plan-features li i.fa-times {
+            color: #555;
+        }
+
+        .plan-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-plan {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-plan:hover {
+            background-color: var(--primary-color);
+            color: #121212;
+            border-color: var(--primary-color);
+        }
+
+        .btn-plan-secondary:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* --- جدول سجل الفواتير --- */
+        .table-container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            width: 320px;
+            transition: var(--transition);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .search-box i {
+            color: var(--text-muted);
+            margin-right: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            min-width: 800px;
+        }
+
+        table thead tr {
+            text-align: right;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        table th {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        table td {
+            padding: 1.2rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* شارات الحالة للفواتير */
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-badge.paid {
+            background-color: var(--success-bg);
+            color: var(--success);
+        }
+
+        .status-badge.pending {
+            background-color: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .status-badge.cancelled {
+            background-color: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        /* الإجراءات */
+        .actions-cell {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-view:hover {
+            color: #fff;
+            border-color: #666;
+        }
+
+        .btn-print:hover {
+            color: var(--primary-color);
+            border-color: rgba(255, 193, 7, 0.4);
+        }
+
+        .btn-delete:hover {
+            color: var(--danger);
+            border-color: rgba(211, 47, 47, 0.4);
+        }
+
+        /* --- الشاشات الصغيرة والتجاوب --- */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 240px;
+            }
+
+            .main-content {
+                margin-right: 240px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem;
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 2rem 1rem;
+            }
+
+            .logo {
+                margin-bottom: 0;
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .nav-links li {
+                margin-bottom: 0;
+            }
+
+            .nav-links a {
+                padding: 0.6rem 1rem;
+                font-size: 1rem;
+            }
+
+            .nav-links a span {
+                display: none;
+            }
+
+            .nav-links a i {
+                margin-left: 0;
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .table-wrap {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- القائمة الجانبية (Sidebar) -->
+    <nav class="sidebar">
+        <div class="logo">جيم ماستر</div>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-th-large"></i> <span>لوحة التحكم</span></a></li>
+            <li><a href="/view"><i class="fas fa-users"></i> <span>الأعضاء</span></a></li>
+            <li><a href="/choich"><i class="fas fa-chalkboard-teacher"></i> <span>المدربين</span></a></li>
+            <!-- قسم الفواتير مفعّل (Active) -->
+            <li><a href="/price" class="active"><i class="fas fa-file-invoice-dollar"></i> <span>الفواتير</span></a></li>
+            <li><a href="/sting"><i class="fas fa-cogs"></i> <span>الإعدادات</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- المحتوى الرئيسي (Main Content) -->
+    <main class="main-content">
+        <header>
+            <h1> أسعار الأشتراكات </h1>
+            <div class="header-actions">
+            <form >
+                <button class="btn-add">
+                    <a href="/add" ><i class="fa-solid fa-plus"></i> إضافة عضو جديد </a>
+                </button>
+            </form>
+            </div>
+        </header>
+
+        <!-- قسم خطط الاشتراكات (Plans) - مطابقة لهيكل الصورة بالألوان الذهبية والداكنة -->
+        <h2 class="section-title"><i class="fas fa-tags" style="color: var(--primary-color);"></i> خطط الاشتراكات
+            الحالية</h2>
+        <section class="plans-grid">
+            <!-- الخطة الأساسية -->
+            <div class="plan-card">
+                <div>
+                    <div class="plan-header">
+                        <span class="plan-title">الأساسية (Basic)</span>
+                        <span class="plan-badge">نشطة</span>
+                    </div>
+                    <div class="plan-price"> الف 25 <span>/ شهرياً</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> دخول الصالة الرياضية</li>
+                        <li><i class="fas fa-check"></i> خزانات ملابس مجانية</li>
+                        <li><i class="fas fa-times"></i> مدرب شخصي</li>
+                        <li><i class="fas fa-times"></i> دخول منطقة الساونا</li>
+                    </ul>
+                </div>
+
+                <div class="plan-actions">
+                    <button class="btn-plan">تعديل</button>
+                </div>
+            </div>
+
+            <!-- الخطة الاحترافية -->
+            <div class="plan-card">
+                <div>
+                    <div class="plan-header">
+                        <span class="plan-title">الاحترافية (Pro)</span>
+                        <span class="plan-badge">الأكثر طلباً</span>
+                    </div>
+                    <div class="plan-price"> الف 45 <span>/ شهرين </span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> دخول الصالة الرياضية كاملة</li>
+                        <li><i class="fas fa-check"></i> خزانات ملابس مجانية</li>
+                        <li><i class="fas fa-check"></i> حصتان مع مدرب شخصي</li>
+                        <li><i class="fas fa-times"></i> دخول منطقة الساونا</li>
+                    </ul>
+                </div>
+                <div class="plan-actions">
+                    <button class="btn-plan">تعديل</button>
+                </div>
+            </div>
+
+            <!-- الخطة الشاملة -->
+            <div class="plan-card">
+                <div>
+                    <div class="plan-header">
+                        <span class="plan-title">الذهبية (VIP)</span>
+                        <span class="plan-badge">نشطة</span>
+                    </div>
+                    <div class="plan-price"> الف 125 <span>  / ستة أشهر </span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> دخول شامل لكل المرافق 24/7</li>
+                        <li><i class="fas fa-check"></i> خزانة خاصة دائمية</li>
+                        <li><i class="fas fa-check"></i> مدرب شخصي دائم</li>
+                        <li><i class="fas fa-check"></i> دخول مجاني للساونا والبخار</li>
+                    </ul>
+                </div>
+                <div class="plan-actions">
+                    <button class="btn-plan">تعديل</button>
+                </div>
+            </div>
+
+            <!-- الخطة الشاملة -->
+            <div class="plan-card">
+                <div>
+                    <div class="plan-header">
+                        <span class="plan-title">الذهبية (VVIP)</span>
+                        <span class="plan-badge">نشطة</span>
+                    </div>
+                    <div class="plan-price"> الف 250 <span>/ سنوي </span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> دخول شامل لكل المرافق 24/7</li>
+                        <li><i class="fas fa-check"></i> خزانة خاصة دائمية</li>
+                        <li><i class="fas fa-check"></i> مدرب شخصي دائم</li>
+                        <li><i class="fas fa-check"></i> دخول مجاني للساونا والبخار</li>
+                    </ul>
+                </div>
+                <div class="plan-actions">
+                    <button class="btn-plan">تعديل</button>
+                </div>
+            </div>
+        </section>
+
+</body>
+</html>

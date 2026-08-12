@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جيم ماستر | تفاصيل العضو</title>
+    
+    <!-- خط Readex Pro الرياضي -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- المتغيرات والتصاميم الموحدة (أسود وذهبي) --- */
+        :root {
+            --primary-gold: #ffc107;
+            --primary-glow: rgba(255, 193, 7, 0.35);
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --sidebar-dark: #161616;
+            --text-main: #f0f0f0;
+            --text-muted: #8e8e93;
+            --border-color: #2c2c2e;
+            --font-family: 'Readex Pro', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- القائمة الجانبية (Sidebar) --- */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-dark);
+            padding: 2rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: var(--primary-gold);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+            background-color: rgba(255, 193, 7, 0.05);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 193, 7, 0.12);
+            color: var(--primary-gold);
+            font-weight: 600;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.15);
+        }
+
+        .nav-links a i {
+            margin-left: 12px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* --- المحتوى الرئيسي (Main Content) --- */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem;
+            margin-right: 260px;
+        }
+
+        /* شريط التنقل العلوي (Breadcrumb) الهيدر */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .id-badge {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--primary-gold);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        /* --- كارت تفاصيل العضو المعروضة كجدول منسق --- */
+        .details-card {
+            background-color: var(--card-dark);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+        }
+
+        .card-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header-area h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header-area h2 i {
+            color: var(--primary-gold);
+        }
+
+        .btn-edit {
+            background-color: var(--primary-gold);
+            color: #121212;
+            text-decoration: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 12px var(--primary-glow);
+            transition: var(--transition);
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+
+        /* الجدول العصري للبيانات */
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .details-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .details-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .details-table th, 
+        .details-table td {
+            padding: 1.2rem 1rem;
+            vertical-align: middle;
+        }
+
+        .details-table th {
+            text-align: right;
+            width: 40%;
+            color: #d8d4c7;
+        }
+
+        .details-table th i {
+            color: var(--primary-gold);
+            width: 18px;
+            text-align: center;
+        }
+
+        .details-table td {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .empty-value {
+            color: #555;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem;
+            }
+            .main-content { margin-right: 0; padding: 1.5rem; }
+            .logo { margin-bottom: 0; font-size: 1.4rem; }
+            .nav-links { display: flex; gap: 0.5rem; }
+            .nav-links a span { display: none; }
+            .page-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- السايدبار الجانبي -->
+        <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-dumbbell"></i>
+            أكشن جيم 
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active"><i class="fa-solid fa-house"></i> لوحة التحكم</a></li>
+
+            <li><a href="/view" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-users"> </i> الأعضاء </a></li>
+            <li><a href="/choich" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-user-ninja"> </i> المدربون </a></li>
+            <li><a href="/price" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-credit-card"> </i> الأشتراكات </a></li>
+            <li><a href="/sting" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-gear"> </i> الإعدادات </a></li>
+        </ul>
+    </aside>
+
+    <!-- المحتوى الأساسي -->
+    <main class="main-content">
+        
+        <!-- الهيدر والتنقل -->
+        <header class="page-header">
+            <div class="breadcrumb">
+                <a ><i class="fas fa-home"></i> الرئيسية</a>
+                <span>/</span>
+                <span>تفاصيل العضو</span>
+            </div>
+        </header>
+
+        <!-- كارت التفاصيل -->
+        <div class="details-card">
+            <div class="card-header-area">
+                <h2><i class="fas fa-id-card"></i> المعلومات الشخصية</h2>
+                <a href="/edit/<%= arr2._id %>" class="btn-edit">
+                    <i class="fas fa-edit"></i> تعديل البيانات
+                </a>
+            </div>
+
+            <!-- جدول العرض بنفس حقول الصورة -->
+            <table class="details-table">
+                <tbody>
+                    <tr>
+                        <th><i class="fas fa-user"></i>  الاسم الثلاثي </th>
+                        <td> <%= arr2.name %> </td>
+                    </tr>
+                    <tr>
+                        <th><i class="fas fa-birthday-cake"></i> العمر </th>
+                        <td><%= arr2.age %></td>
+                    </tr>
+                    <tr>
+                        <th><i class="fas fa-phone"></i> رقم الهاتف </th>
+                        <td><%= arr2.tele %></td>
+                    </tr>
+                    <tr>
+                        <th><i class="fas fa-calendar-plus"></i> تاريخ الأشتراك </th>
+                        <td> <%= moment(arr2.datasta).subtract("days").format("M/D/YYYY") %> </td>
+                    </tr>
+                    <tr>
+                        <th><i class="fas fa-calendar-plus"></i> نوع الأشتراك</th>
+                        <td><%=
+                                arr2.subscription === "monthly" ? "اشتراك شهري 25 الف": 
+                                arr2.subscription === "2 month" ? "اشتراك شهرين 45 الف":
+                                arr2.subscription === "medium" ? "اشتراك ستة أشهر 125  الف":
+                                arr2.subscription === "vip" ? "اشتراك سنوي 250 الف": arr2.subscription 
+                                
+                        %></td> 
+                    </tr>
+                    <tr>
+                        <th><i class="fas fa-qrcode"></i> الباركود الخاص بالعضو </th>
+                        <td>
+                            <div id="qrcode"></div>
+                        </td>
+                    </tr>
+                    
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+                    <script>
+                        new QRCode(document.getElementById("qrcode"),{
+                            text: "<%=arr2._id%>",
+                            format:"CODE128",
+                            colorDark: "#ffffff",
+                            background:"transparent",
+                            width: 120,
+                            height: 120,
+                            displayValue: true,
+                            colorLight: "#000000",
+                            correctLevel: QRCode.CorrectLevel.H
+                        })
+                    </script>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</body>
+</html>
