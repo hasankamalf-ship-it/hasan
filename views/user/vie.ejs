@@ -187,11 +187,11 @@
         /* --- كارت الباركود (QR Code) --- */
         .qr-card {
             background: #141416;
-            border: 1px solid #28282d;
-            border-radius: 24px;
+            border: 1px solid #282828;
+            border-radius: 20px;
             padding: 20px;
-            margin: 15px 0;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .qr-header {
@@ -199,6 +199,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            direction: rtl;
         }
 
         .status-tag {
@@ -210,9 +211,9 @@
         }
 
         .qr-title {
-            color: #a0a0ab;
-            font-size: 13px;
-            font-weight: 600;
+            color: #a0a0a0;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .qr-body {
@@ -224,10 +225,9 @@
 
         #qrcode {
         background-color: #ffffff;
-        padding: 16px;
-        border-radius: 22px;
+        padding: 14px;
+        border-radius: 16px;
         display: inline-block;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .qr-body img,
@@ -275,6 +275,8 @@
         background: #202024;
         border: 1px solid #33333a;
         color: #d1d1d6;
+        margin-bottom: 14px;
+
         }
 
         .btn-expand:hover {
@@ -287,13 +289,24 @@
         background: rgba(212, 175, 55, 0.08);
         border: 1px solid #d4af37;
         color: #d4af37;
+        margin-bottom: 14px;
         }
 
         .btn-save:hover {
         background: #d4af37;
         color: #000000;
         }
+        /* .card-label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 4px;
+        }
 
+        .card-value {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: bold;
+        } */
 
         .btn-gold {
             border-color: #ffc107;
@@ -645,10 +658,10 @@
                     }%>
 
             <div class="qr-header">
+                <span class="qr-title">رمز دخول البوابة</span>
                 <span class="status-badge <%= ids %>">
                     <%= text %>
                 </span>
-                <span class="qr-title">رمز دخول البوابة</span>
             </div>
             <div class="qr-body">
                 <!-- الحاوية الخاصة بتوليد الباركود -->
@@ -664,7 +677,7 @@
             <!-- زر الحفظ/التنزيل -->
             <button type="button" class="btn-qr btn-save" onclick="downloadQR()">
                 <i class="fas fa-download"></i> 
-                <span> حفظ </span>
+                <span > حفظ </span>
 
             </button>
             </div>
