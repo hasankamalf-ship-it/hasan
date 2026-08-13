@@ -459,17 +459,6 @@
         }
 
         @media (max-width: 768px) {
-
-            aside.sidebar {
-                display: none !important;
-            }
-            .main-content{
-                margin-right: 0 !important;
-                margin-left: 0 !important;
-                width: 100% !important;
-                padding: 12px !important;
-                padding-bottom: 80 !important;
-            }
             header { flex-direction: column; align-items: flex-start; gap: 1rem; }
             header h1 { font-size: 1.8rem; }
             .search-box { width: 100%; }
