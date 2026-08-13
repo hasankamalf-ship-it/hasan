@@ -493,58 +493,20 @@
         border-radius: 10px;
         }
 
-        @media (max-width: 992px) {
-            body {
-                flex-direction: column;
-            }
 
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                border-left: none;
-                border-bottom: 1px solid var(--border-color);
-                flex-direction: row;
-                justify-content: space-around;
-                padding: 1rem;
-            }
+        @media (max-width: 768px) {
 
             .main-content {
-                margin-right: 0;
-                padding: 1.5rem;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 10px !important;
             }
 
-            .logo {
-                margin-bottom: 0;
-                font-size: 1.4rem;
-            }
-
-            .nav-links {
-                display: flex;
-                gap: 0.5rem;
-            }
-
-            .nav-links a span {
-                display: none;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group.full-width {
-                grid-column: span 1;
-            }
-
-            .form-actions {
-                grid-column: span 1;
-                flex-direction: column;
-            }
-
-            .member-info-banner {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
+            .qr-card {
+                max-width: 100% !important;
+                margin: 0 0 16px 0 !important;
+                padding: 12px !important;
             }
         }
     </style>
