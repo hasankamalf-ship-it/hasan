@@ -492,6 +492,61 @@
         margin-top: 10px;
         border-radius: 10px;
         }
+
+        @media (max-width: 992px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem;
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 1.5rem;
+            }
+
+            .logo {
+                margin-bottom: 0;
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .nav-links a span {
+                display: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .form-actions {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+
+            .member-info-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -651,6 +706,28 @@
                     </div>
                     <% } %>
         </div>
+
+
+
+        <!-- 4. شريط التنقل السفلي -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>الجدول</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-calculator"></i>
+                <span>الحاسبة</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </a>
+        </nav>
     </main>
 
     <!-- كود توليد الباركود القائم كما هو في ملفك -->
