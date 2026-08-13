@@ -496,8 +496,6 @@
         
         /* --- Responsive Design (استجابة الشاشات) --- */
         
-        /* تكييف السايدبار والمحتوى على الشاشات المتوسطة */
-
         /* السايدبار يتحول لقائمة علوية على الشاشات الصغيرة */
         @media (max-width: 992px) {
             body { flex-direction: column; }
@@ -524,29 +522,27 @@
         }
 
         @media (max-width: 768px) {
-            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            header h1 { font-size: 1.8rem; }
-            .search-box { width: 100%; }
-            .stats-grid { gap: 1rem; }
-            .stat-card { padding: 1.5rem; }
-            .stat-card .count { font-size: 2.2rem; }
-            
-            /* تفعيل التمرير الأفقي للجدول على الموبايل */
-            .table-wrap { overflow-x: auto; }
-        }
-        @media (max-width: 600px){
+            body {
+                flex-direction: column;
+            }
+
             .sidebar {
-                flex-direction: column !important;
-                padding: 0.8rem 0.5rem !important;
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1rem;
             }
-            .nav-links {
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                gap: 0.4rem !important;
-            }
-            .nav-links a {
-                font-size: 0.85rem !important;
-            }
+
+            .main-content {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 10px !important;
+            } 
         }
 /* 
         @media (max-width: 768px) {
