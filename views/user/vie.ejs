@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جيم ماستر | تفاصيل العضو</title>
-    
+
     <!-- خط Readex Pro الرياضي -->
-    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- مكتبة الأيقونات Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* --- المتغيرات والتصاميم الموحدة (أسود وذهبي) --- */
         :root {
@@ -105,256 +107,654 @@
         /* --- المحتوى الرئيسي (Main Content) --- */
         .main-content {
             flex: 1;
-            padding: 2.5rem;
-            margin-right: 260px;
+            background-color: #0f0f0f;
+            color: #ffffff;
+            padding: 16px;
+            padding-bottom: 90px;
+            max-width: 480px;
+            margin: 0 auto;
+            direction: rtl;
         }
 
-        /* شريط التنقل العلوي (Breadcrumb) الهيدر */
-        .page-header {
+        /* --- الهيدر العلوي --- */
+        .app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        .breadcrumb a {
-            color: var(--primary-gold);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-        .id-badge {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--primary-gold);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            padding: 0.4rem 1rem;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-
-        /* --- كارت تفاصيل العضو المعروضة كجدول منسق --- */
-        .details-card {
-            background-color: var(--card-dark);
+            background: #181818;
+            padding: 12px 16px;
             border-radius: 16px;
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 900px;
+            margin-bottom: 16px;
+            border: 1px solid #282828;
         }
 
-        .card-header-area {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .card-header-area h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .notification-box {
+            position: relative;
+            background: #252525;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            color: #ffc107;
         }
 
-        .card-header-area h2 i {
-            color: var(--primary-gold);
-        }
-
-        .btn-edit {
-            background-color: var(--primary-gold);
-            color: #121212;
-            text-decoration: none;
-            padding: 0.6rem 1.4rem;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
+        .notification-box .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #ffc107;
+            color: #000;
+            font-size: 10px;
+            font-weight: bold;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 12px var(--primary-glow);
-            transition: var(--transition);
+            justify-content: center;
         }
 
-        .btn-edit:hover {
-            background-color: #e0a800;
-            transform: translateY(-2px);
-        }
-
-        /* الجدول العصري للبيانات */
-        .details-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .details-table tr {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .details-table tr:hover {
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        .details-table th, 
-        .details-table td {
-            padding: 1.2rem 1rem;
-            vertical-align: middle;
-        }
-
-        .details-table th {
-            text-align: right;
-            width: 40%;
-            color: #d8d4c7;
-        }
-
-        .details-table th i {
-            color: var(--primary-gold);
-            width: 18px;
+        .user-greeting {
             text-align: center;
         }
 
-        .details-table td {
-            color: var(--text-main);
+        .user-greeting .sub-title {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .user-greeting .user-name {
+            font-size: 16px;
+            margin: 0;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .brand-logo {
+            background: #ffc107;
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        /* --- كارت الباركود (QR Code) --- */
+        .qr-card {
+            background: #141416;
+            border: 1px solid #28282d;
+            border-radius: 24px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .qr-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .status-tag {
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .qr-title {
+            color: #a0a0ab;
+            font-size: 13px;
             font-weight: 600;
         }
 
-        .empty-value {
-            color: #555;
-            font-style: italic;
-            font-weight: 400;
+        .qr-body {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            margin-bottom: 22px;
         }
 
-        @media (max-width: 992px) {
-            body { flex-direction: column; }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                border-left: none;
-                border-bottom: 1px solid var(--border-color);
-                flex-direction: row;
-                justify-content: space-around;
-                padding: 1rem;
-            }
-            .main-content { margin-right: 0; padding: 1.5rem; }
-            .logo { margin-bottom: 0; font-size: 1.4rem; }
-            .nav-links { display: flex; gap: 0.5rem; }
-            .nav-links a span { display: none; }
-            .page-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        #qrcode {
+        background-color: #ffffff;
+        padding: 16px;
+        border-radius: 22px;
+        display: inline-block;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-body img,
+        .qr-body canvas {
+            display: block;
+            width: 185px  !important;
+            height: 185px !important;
+            border-radius: 8px;
+        }
+
+        .qr-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+            direction: rtl;
+        }
+
+        .btn-action {
+            background: #252525;
+            border: 1px solid #3a3a3a;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-qr {
+        flex: 1;
+        max-width: 130px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        }
+
+        .btn-expand {
+        background: #202024;
+        border: 1px solid #33333a;
+        color: #d1d1d6;
+        }
+
+        .btn-expand:hover {
+        background: #2a2a30;
+        color: #ffffff;
+        }
+
+        /* زر الحفظ (الذهبي) */
+        .btn-save {
+        background: rgba(212, 175, 55, 0.08);
+        border: 1px solid #d4af37;
+        color: #d4af37;
+        }
+
+        .btn-save:hover {
+        background: #d4af37;
+        color: #000000;
+        }
+
+
+        .btn-gold {
+            border-color: #ffc107;
+            color: #ffc107;
+        }
+
+        /* أوسمة الحالة (Badges) */
+        .status-badge {
+            padding: 4px 14px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .status-badge.active {
+            background-color: var(--success-bg, rgba(46, 204, 113, 0.12));
+            color: var(--success, #2ecc71);
+            border: 1px solid rgba(46, 204, 113, 0.25);
+        }
+
+        .status-badge.active::before {
+            background-color: var(--success, #2ecc71);
+        }
+
+        .status-badge.expired {
+            background-color: var(--danger-bg, rgba(231, 76, 60, 0.12));
+            color: var(--danger, #e74c3c);
+            border: 1px solid rgba(231, 76, 60, 0.25);
+        }
+
+        .status-badge.expired::before {
+            background-color: var(--danger, #e74c3c);
+        }
+
+        .status-badge.pending {
+            background-color: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .status-badge.pending::before {
+            background-color: var(--warning);
+        }
+
+        /* --- شبكة كروت المعلومات --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .info-card {
+            background: #181818;
+            border: 1px solid #282828;
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-icon {
+            background: #252525;
+            color: #ffc107;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .card-label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .card-value {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .border-success {
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        .icon-success {
+            color: #28a745;
+        }
+
+        .text-success {
+            color: #28a745;
+        }
+
+        .border-danger {
+            border-color: rgba(167, 55, 40, 0.3);
+        }
+
+        .icon-danger {
+            color: #d32f2f;
+        }
+
+        .text-danger {
+            color: #d32f2f;
+        }
+
+        /* --- شريط التنقل السفلي --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #121212;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-top: 1px solid #222;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            gap: 4px;
+        }
+
+        .nav-item.active {
+            color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+            padding: 6px 14px;
+            border-radius: 10px;
+        }
+
+        /* النافذة المنبثقة للتكبير */
+        .qr-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(6px);
+        justify-content: center;
+        align-items: center;
+        }
+
+        .qr-modal-content {
+        background: #181818;
+        padding: 25px;
+        border-radius: 18px;
+        border: 1px solid #333;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        max-width: 90%;
+        }
+
+        .close-modal-btn {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        font-size: 26px;
+        color: #aaa;
+        cursor: pointer;
+        line-height: 1;
+        }
+
+        .close-modal-btn:hover {
+        color: #fff;
+        }
+
+        /* تكبير حجم صورة الباركود داخل النافذة */
+        #modalQrCode img, 
+        #modalQrCode canvas {
+        width: 260px !important;
+        height: 260px !important;
+        margin-top: 10px;
+        border-radius: 10px;
         }
     </style>
 </head>
+
 <body>
 
     <!-- السايدبار الجانبي -->
-        <aside class="sidebar">
+    <aside class="sidebar">
         <div class="logo">
             <i class="fa-solid fa-dumbbell"></i>
-            أكشن جيم 
+            أكشن جيم
         </div>
         <ul class="nav-links">
             <li><a href="#" class="active"><i class="fa-solid fa-house"></i> لوحة التحكم</a></li>
 
-            <li><a href="/view" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-users"> </i> الأعضاء </a></li>
-            <li><a href="/choich" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-user-ninja"> </i> المدربون </a></li>
-            <li><a href="/price" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-credit-card"> </i> الأشتراكات </a></li>
-            <li><a href="/sting" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i class="fa-solid fa-gear"> </i> الإعدادات </a></li>
+            <li><a href="/view" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i
+                        class="fa-solid fa-users"> </i> الأعضاء </a></li>
+            <li><a href="/choich" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i
+                        class="fa-solid fa-user-ninja"> </i> المدربون </a></li>
+            <li><a href="/price" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i
+                        class="fa-solid fa-credit-card"> </i> الأشتراكات </a></li>
+            <li><a href="/sting" data-bs-toggle="tooltip" data-bs-title="Edit user" data-bs-placement="top"><i
+                        class="fa-solid fa-gear"> </i> الإعدادات </a></li>
         </ul>
     </aside>
 
     <!-- المحتوى الأساسي -->
     <main class="main-content">
-        
-        <!-- الهيدر والتنقل -->
-        <header class="page-header">
-            <div class="breadcrumb">
-                <a ><i class="fas fa-home"></i> الرئيسية</a>
-                <span>/</span>
-                <span>تفاصيل العضو</span>
+        <!-- 1. الهيدر العلوي -->
+        <header class="app-header">
+            <div class="user-greeting">
+                <span class="sub-title">مرحباً بك</span>
+                <h2 class="user-name">
+                    <%= arr2.name %>
+                </h2>
+            </div>
+            <div class="brand-logo">
+                <i class="fas fa-dumbbell"></i>
             </div>
         </header>
 
-        <!-- كارت التفاصيل -->
-        <div class="details-card">
-            <div class="card-header-area">
-                <h2><i class="fas fa-id-card"></i> المعلومات الشخصية</h2>
-                <a href="/edit/<%= arr2._id %>" class="btn-edit">
-                    <i class="fas fa-edit"></i> تعديل البيانات
-                </a>
+        <!-- 2. بطاقة الباركود لدخول البوابة -->
+        <div class="qr-card">
+
+            <% const dateend=new Date(arr2.dataend);
+            const today=new Date() ;
+            dateend.setHours(0,0,0,0)
+            today.setHours(0,0,0,0);
+            const idl =dateend - today;
+            const adda=Math.ceil(idl/(1000*60*60*24));
+                let text="منتهي" ; 
+                let ids="expired" ; %>
+
+                    <% if(adda < 0){ 
+                        text="منتهي" ; 
+                        ids="expired" ; 
+                    } else if (adda <=5){ 
+                        text="ينتهي قريبا" ;
+                        ids="pending" ; 
+                    } else { 
+                        text=" نشط " ; 
+                        ids="active" ; 
+                    }%>
+
+            <div class="qr-header">
+                <span class="status-badge <%= ids %>">
+                    <%= text %>
+                </span>
+                <span class="qr-title">رمز دخول البوابة</span>
+            </div>
+            <div class="qr-body">
+                <!-- الحاوية الخاصة بتوليد الباركود -->
+                <div id="qrcode"></div>
+            </div>
+            <div class="qr-actions">
+            <!-- زر التكبير -->
+            <button type="button" class="btn-qr btn-expand" onclick="openQrModal()">
+                <i class="fas fa-expand-arrows-alt"></i> 
+                <span> تكبير </span>
+            </button>
+            
+            <!-- زر الحفظ/التنزيل -->
+            <button type="button" class="btn-qr btn-save" onclick="downloadQR()">
+                <i class="fas fa-download"></i> 
+                <span> حفظ </span>
+
+            </button>
             </div>
 
-            <!-- جدول العرض بنفس حقول الصورة -->
-            <table class="details-table">
-                <tbody>
-                    <tr>
-                        <th><i class="fas fa-user"></i>  الاسم الثلاثي </th>
-                        <td> <%= arr2.name %> </td>
-                    </tr>
-                    <tr>
-                        <th><i class="fas fa-birthday-cake"></i> العمر </th>
-                        <td><%= arr2.age %></td>
-                    </tr>
-                    <tr>
-                        <th><i class="fas fa-phone"></i> رقم الهاتف </th>
-                        <td><%= arr2.tele %></td>
-                    </tr>
-                    <tr>
-                        <th><i class="fas fa-calendar-plus"></i> تاريخ الأشتراك </th>
-                        <td> <%= moment(arr2.datasta).subtract("days").format("M/D/YYYY") %> </td>
-                    </tr>
-                    <tr>
-                        <th><i class="fas fa-calendar-plus"></i> نوع الأشتراك</th>
-                        <td><%=
-                                arr2.subscription === "monthly" ? "اشتراك شهري 25 الف": 
-                                arr2.subscription === "2 month" ? "اشتراك شهرين 45 الف":
-                                arr2.subscription === "medium" ? "اشتراك ستة أشهر 125  الف":
-                                arr2.subscription === "vip" ? "اشتراك سنوي 250 الف": arr2.subscription 
-                                
-                        %></td> 
-                    </tr>
-                    <tr>
-                        <th><i class="fas fa-qrcode"></i> الباركود الخاص بالعضو </th>
-                        <td>
-                            <div id="qrcode"></div>
-                        </td>
-                    </tr>
-                    
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <!-- 3. شبكة بطاقات المعلومات (Grid) -->
+        <div class="info-grid">
+            <!-- رقم الهاتف -->
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                <span class="card-label">رقم الهاتف</span>
+                <strong class="card-value">
+                    <%= arr2.tele %>
+                </strong>
+            </div>
 
-                    <script>
-                        new QRCode(document.getElementById("qrcode"),{
-                            text: "<%=arr2._id%>",
-                            format:"CODE128",
-                            colorDark: "#ffffff",
-                            background:"transparent",
-                            width: 120,
-                            height: 120,
-                            displayValue: true,
-                            colorLight: "#000000",
-                            correctLevel: QRCode.CorrectLevel.H
-                        })
-                    </script>
-                </tbody>
-            </table>
+            <!-- رقم المشترك -->
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-user"></i></div>
+                <span class="card-label">رقم المشترك</span>
+                <strong class="card-value">
+                    <%= arr2._id.toString().slice(-4) %>
+                </strong>
+            </div>
+
+
+            <!-- تاريخ الاشتراك -->
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                <span class="card-label">بداية الاشتراك</span>
+                <strong class="card-value">
+                    <%= moment(arr2.datasta).format("YYYY/MM/DD") %>
+                </strong>
+            </div>
+
+            <!-- نهاية الاشتراك -->
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                <span class="card-label">نهاية الاشتراك</span>
+                <strong class="card-value">
+                    <%= moment(arr2.dataend).format("YYYY/MM/DD") %>
+                </strong>
+            </div>
+
+
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-sign-in-alt"></i></div>
+                <span class="card-label"> الدخول المتبقي </span>
+
+
+                <% if(adda> 0){ %>
+                    <strong class="card-value">
+                        <%= adda %> يوم
+                    </strong>
+                    <% }else if (adda <=0) { %>
+                        <span class="card-value text-danger"> أنتهى الأشتراك </span>
+                        <% } %>
+            </div>
+
+            <!-- حالة الحساب -->
+            <% if (adda> 0) { %>
+                <!-- في حالة الحساب النشط (أخضر) -->
+                <div class="info-card border-success">
+                    <div class="card-icon icon-success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <span class="card-label">حالة الحساب</span>
+                    <strong class="card-value text-success"> نشط </strong>
+                </div>
+                <% } else { %>
+                    <!-- في حالة الحساب المنتهي (أحمر + أيقونة تحذير) -->
+                    <div class="info-card border-danger">
+                        <div class="card-icon icon-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <span class="card-label">حالة الحساب</span>
+                        <strong class="card-value text-danger"> منتهي </strong>
+                    </div>
+                    <% } %>
         </div>
+
+
+
+        <!-- 4. شريط التنقل السفلي -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>الجدول</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-calculator"></i>
+                <span>الحاسبة</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </a>
+        </nav>
+    </main>
+
+    <!-- كود توليد الباركود القائم كما هو في ملفك -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        new QRCode(document.getElementById("qrcode"), {
+            text: "<%= arr2._id %>",
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+
+    </div>
 
     </main>
 
+    <!-- نافذة عرض الباركود المكبر -->
+    <div id="qrModal" class="qr-modal" onclick="closeQrModal()">
+    <div class="qr-modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal-btn" onclick="closeQrModal()">&times;</span>
+        <h4 style="color:#fff; margin: 0 0 12px 0;">رمز دخول البوابة</h4>
+        <div id="modalQrCode"></div>
+    </div>
+
+
+    <script>
+    // 1. وظيفة تنزيل صورة الباركود على جهاز المستخدم
+    function downloadQR() {
+        const qrContainer = document.getElementById('qrcode');
+        if (!qrContainer) return;
+
+        const img = qrContainer.querySelector('img');
+        const canvas = qrContainer.querySelector('canvas');
+
+        let imageSrc = '';
+
+        // التحقق هل الباركود صورة أم Canvas
+        if (img && img.src) {
+        imageSrc = img.src;
+        } else if (canvas) {
+        imageSrc = canvas.toDataURL('image/png');
+        }
+
+        if (!imageSrc) {
+        alert('الباركود غير جاهز للتنزيل بعد');
+        return;
+        }
+
+        // إنشاء رابط تنزيل وهمي وضغطه تلقائياً
+        const link = document.createElement('a');
+        link.href = imageSrc;
+        link.download = 'QR_Code_<%= arr2._id.toString().slice(-6) %>.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // 2. فتح نافذة التكبير
+    function openQrModal() {
+        const qrContainer = document.getElementById('qrcode');
+        const modalContainer = document.getElementById('modalQrCode');
+
+        if (qrContainer && modalContainer) {
+        modalContainer.innerHTML = qrContainer.innerHTML;
+        document.getElementById('qrModal').style.display = 'flex';
+        }
+    }
+
+    // 3. إغلاق النافذة المكبرة
+    function closeQrModal() {
+        document.getElementById('qrModal').style.display = 'none';
+    }
+    </script>
+</div>
 </body>
+
 </html>
